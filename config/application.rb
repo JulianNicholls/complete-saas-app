@@ -6,9 +6,9 @@ require 'rails/all'
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
-module SassProjectApp
+module SaasProjectApp
   class Application < Rails::Application
-     
+
     # uncomment to ensure a common layout for devise forms
     #   config.to_prepare do   # Devise
     #     Devise::SessionsController.layout "sign"
