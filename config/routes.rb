@@ -3,8 +3,7 @@ Rails.application.routes.draw do
 
   get 'home/index'
 
-   root :to => "home#index"
-
+  root :to => "home#index"
 
   # *MUST* come *BEFORE* devise's definitions (below)
   as :user do
@@ -12,9 +11,9 @@ Rails.application.routes.draw do
   end
 
   devise_for :users, :controllers => {
-    :registrations => "milia/registrations",
-    :confirmations => "milia/confirmations",
-    :sessions => "milia/sessions",
-    :passwords => "milia/passwords",
+    registrations:  "milia/registrations",
+    confirmations:  "milia/confirmations",
+    sessions:       "milia/sessions",
+    passwords:      "milia/passwords",
   }
 end

@@ -68,11 +68,10 @@ footer {
     background-image: asset-url('multimeters-desaturated.png');
     background-size: cover;
     color: #fff;
-    min-height: 200px;
     font-family: 'Helvetica Neue' !important;
     font-stretch: expanded;
-    padding-top: 25px;
-    padding-bottom: 25px;
+    padding-top: 75px;
+    padding-bottom: 75px;
     margin-left: 15px;
     margin-right: 15px;
     text-shadow: -1px 0 #555, 0 1px #555, 1px 0 #555, 0 -1px #555;
@@ -110,5 +109,18 @@ footer {
 }
 
 .extra {
-    color: #5cb85c;
+    color: #40b840;
+}
+
+.no-side-padding {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.no-left-padding {
+    padding-left: 0;
+}
+
+.no-right-padding {
+    padding-right: 0;
 }
