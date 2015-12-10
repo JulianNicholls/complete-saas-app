@@ -1,6 +1,5 @@
-<%= form_for @project, :html => { :class => "form-horizontal project" } do |f| %>
-
-    <% if @project.errors.any? %>
+<%= form_for [@tenant, @project], :html => { :class => "form-horizontal project" } do |f| %>
+  <% if @project.errors.any? %>
     <div id="error_expl" class="panel panel-danger">
       <div class="panel-heading">
         <h3 class="panel-title"><%= pluralize(@project.errors.count, "error") %> prohibited this project from being saved:</h3>
@@ -20,33 +19,26 @@
     <div class="controls">
       <%= f.text_field :title, :class => 'form-control' %>
     </div>
-    <%= error_span(@project[:title]) %>
   </div>
+
   <div class="control-group">
     <%= f.label :details, :class => 'control-label' %>
     <div class="controls">
       <%= f.text_field :details, :class => 'form-control' %>
     </div>
-    <%= error_span(@project[:details]) %>
   </div>
+
   <div class="control-group">
     <%= f.label :expected_completion_date, :class => 'control-label' %>
     <div class="controls">
-      <%= f.text_field :expected_completion_date, :class => 'form-control' %>
+      <%= f.text_field :expected_completion_date, :class => 'form-control datepicker' %>
     </div>
-    <%= error_span(@project[:expected_completion_date]) %>
   </div>
-  <div class="control-group">
-    <%= f.label :tenant_id, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :tenant_id, :class => 'form-control' %>
-    </div>
-    <%= error_span(@project[:tenant_id]) %>
-  </div>
+  <br />
 
+  <%= f.hidden_field :tenant_id, value: params[:tenant_id], class: 'form-control' %>
 
   <%= f.submit nil, :class => 'btn btn-primary' %>
   <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
-            projects_path, :class => 'btn btn-default' %>
-
+            root_path, :class => 'btn btn-default' %>
 <% end %>
