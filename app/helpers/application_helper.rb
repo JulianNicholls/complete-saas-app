@@ -31,4 +31,8 @@ module ApplicationHelper
   def tenant_name(tenant_id)
     Tenant.find(tenant_id).name
   end
+
+  def s3_link(teant_id, artefact_key)
+    link_to artefact_key, artefact_key, class: 'main-link', target: 'new'
+  end
 end
