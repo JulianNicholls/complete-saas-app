@@ -1,13 +1,15 @@
 <% if current_user %>
 <div class="page-header">
   <h3 class="pull-right">Organization: <%= @tenant.name %></h3>
-  <%= render 'projects/list' %>
+  <h1>Projects</h1>
 </div>
+
+<%= render 'projects/list' %>
 <% else %>
 <div class="jumbotron">
-  <h2>Welcome to the Project Management Application!</h2>
+  <h2 class="text-center">Welcome to Complete Project Management</h2>
   <p class="lead">
-    You'll love managing your project with our SaaS application.
+    You'll love managing your projects with our services.
     Please take a look at our great plans.
   </p>
 </div>
@@ -31,7 +33,7 @@
     </div>
     <div class="col-sm-3 plan">
       <h2>Premium Plan</h2>
-      <div class="price pull-right">Price: $10</div>
+      <div class="price pull-right">Price: £10</div>
       <div class="features">
         <ul>
           <li>Unlimited file uploads</li>
