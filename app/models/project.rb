@@ -1,6 +1,8 @@
 class Project < ActiveRecord::Base
   belongs_to :tenant
 
+  has_many :artefacts, dependent: :destroy
+
   validates_uniqueness_of :title
   validate :free_plan_can_only_have_one_project
 
