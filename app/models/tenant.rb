@@ -44,4 +44,8 @@ class Tenant < ActiveRecord::Base
     Member.create_org_admin(user)
     #
   end
+
+  def can_create_projects?
+    (plan == 'free' && projects.count == 0) || plan == 'premium'
+  end
 end

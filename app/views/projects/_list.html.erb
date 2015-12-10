@@ -2,6 +2,7 @@
 <div class="page-header">
   <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
 </div>
+<% if @projects.any? %>
 <table class="table table-striped">
   <thead>
     <tr>
@@ -32,6 +33,11 @@
     <% end %>
   </tbody>
 </table>
+<% else %>
+  <p class="lead">You don't have any projects</p>
+<% end %>
 
-<%= link_to 'New project', new_tenant_project_path(tenant_id: @tenant.id),
-            :class => 'btn btn-primary' %>
+<% if @tenant.can_create_projects? %>
+  <%= link_to 'New project', new_tenant_project_path(tenant_id: @tenant.id),
+              :class => 'btn btn-primary' %>
+<% end %>
