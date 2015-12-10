@@ -1,6 +1,5 @@
 <%= form_for @artefact, :html => { :class => "form-horizontal artefact" } do |f| %>
-
-    <% if @artefact.errors.any? %>
+  <% if @artefact.errors.any? %>
     <div id="error_expl" class="panel panel-danger">
       <div class="panel-heading">
         <h3 class="panel-title"><%= pluralize(@artefact.errors.count, "error") %> prohibited this artefact from being saved:</h3>
@@ -20,26 +19,18 @@
     <div class="controls">
       <%= f.text_field :name, :class => 'form-control' %>
     </div>
-    <%= error_span(@artefact[:name]) %>
   </div>
   <div class="control-group">
-    <%= f.label :key, :class => 'control-label' %>
+    <%= f.label :upload, value: 'File to upload', :class => 'control-label' %>
     <div class="controls">
-      <%= f.text_field :key, :class => 'form-control' %>
+      <%= f.file_field :upload, :class => 'form-control' %>
     </div>
-    <%= error_span(@artefact[:key]) %>
-  </div>
-  <div class="control-group">
-    <%= f.label :project_id, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :project_id, :class => 'form-control' %>
-    </div>
-    <%= error_span(@artefact[:project_id]) %>
   </div>
 
+  <%= f.hidden_field :project_id %>
 
   <%= f.submit nil, :class => 'btn btn-primary' %>
   <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
-            artefacts_path, :class => 'btn btn-default' %>
-
+            tenant_project_path(tenant_id: Tenant.current_tenant_id, id: @artefact.project_id),
+            :class => 'btn btn-default' %>
 <% end %>

@@ -15,6 +15,7 @@ class ArtefactsController < ApplicationController
   # GET /artefacts/new
   def new
     @artefact = Artefact.new
+    @artefact.project_id = params[:project_id]
   end
 
   # GET /artefacts/1/edit
@@ -28,7 +29,8 @@ class ArtefactsController < ApplicationController
 
     respond_to do |format|
       if @artefact.save
-        format.html { redirect_to @artefact, notice: 'Artefact was successfully created.' }
+        format.html { redirect_to tenant_project_url(tenant_id: Tenant.current_tenant_id, id: @artefact.project_id),
+                                  notice: 'Artefact was successfully created.' }
         format.json { render :show, status: :created, location: @artefact }
       else
         format.html { render :new }
@@ -56,7 +58,8 @@ class ArtefactsController < ApplicationController
   def destroy
     @artefact.destroy
     respond_to do |format|
-      format.html { redirect_to artefacts_url, notice: 'Artefact was successfully destroyed.' }
+      format.html { redirect_to tenant_project_url(tenant_id: Tenant.current_tenant_id, id: @artefact.project_id),
+        notice: 'Artefact was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -69,6 +72,6 @@ class ArtefactsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def artefact_params
-      params.require(:artefact).permit(:name, :key, :project_id)
+      params.require(:artefact).permit(:name, :project_id, :upload)
     end
 end
