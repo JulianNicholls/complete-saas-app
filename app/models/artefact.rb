@@ -1,3 +1,4 @@
+# Project artefacts
 class Artefact < ActiveRecord::Base
   before_save :upload_to_s3
 
@@ -17,7 +18,7 @@ class Artefact < ActiveRecord::Base
 
   def upload_to_s3
     s3 = Aws::S3::Resource.new(region: ENV['S3_REGION'])
-    tenant_name = Tenant.find(Thread.current[:tenant_id]).name
+    tenant_name = Tenant.find(Thread.current[:tenant_id]).name.gsub(/\s+|&/, '-')
     obj = s3.bucket(ENV['S3_BUCKET']).object("#{tenant_name}/#{upload.original_filename}")
     obj.upload_file(upload.path, acl: 'public-read')
     self.key = obj.public_url
