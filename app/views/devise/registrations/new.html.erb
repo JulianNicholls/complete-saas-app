@@ -45,6 +45,7 @@
         </div>
 
         <%= fields_for(:payment) do |p| %>
+          <p class="text-center text-danger"><small>Please do NOT use a real credit card number. It cannot be stored or charged, but safety first.</small></p>
           <div class="row">
             <div class="form-group col-md-4">
               <%= p.label :card_number, "Card Number", data: { stripe: 'label' } %>
@@ -70,7 +71,6 @@
                              { include_blank: 'Year' }, class: "form-control",
                              data: { stripe: "exp-year"}, required: true %>
               </div>
-              <small class="text-center text-danger">Please do NOT use a real credit card number. It cannot be stored or charged, but safety first.</small>
             </div>
           </div>
         <% end %>
