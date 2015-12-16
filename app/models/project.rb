@@ -1,3 +1,4 @@
+# Organisational project
 class Project < ActiveRecord::Base
   belongs_to :tenant
 
@@ -7,9 +8,10 @@ class Project < ActiveRecord::Base
   validate :free_plan_can_only_have_one_project
 
   def free_plan_can_only_have_one_project
-    if self.new_record? && (tenant.projects.count > 0) && (tenant.plan == 'free')
-      errors.add(:base, 'Free plans can only have one project')
-    end
+    return unless self.new_record? &&
+                  tenant.projects.count > 0 && tenant.plan == 'free'
+
+    errors.add(:base, 'Free plans can only have one project')
   end
 
   def self.by_plan_and_tenant(tenant_id)

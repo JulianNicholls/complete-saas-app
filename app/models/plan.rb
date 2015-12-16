@@ -1,7 +1,8 @@
+# Free or Premium paid plan
 class Plan
   PLANS = [:free, :premium]
 
   def self.options
-    PLANS.map { |plan| [plan.to_s.capitalize, plan]}
+    PLANS.map { |plan| [plan.to_s.capitalize, plan] }
   end
 end

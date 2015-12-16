@@ -1,26 +1,28 @@
+# Class for organisations
 class Tenant < ActiveRecord::Base
   acts_as_universal_and_determines_tenant
 
   has_many :members,  dependent: :destroy
   has_many :projects, dependent: :destroy
 
-  has_one  :payment
+  has_one :payment
 
   accepts_nested_attributes_for :payment
 
   validates_presence_of :name
   validates_uniqueness_of :name
 
-  def self.create_new_tenant(tenant_params, user_params, coupon_params)
+  def self.create_new_tenant(tenant_params, _user_params, _coupon_params)
     tenant = Tenant.new tenant_params
 
     if new_signups_not_permitted?(coupon_params)
-      raise ::Milia::Control::MaxTenantExceeded, "Sorry, new accounts not permitted at this time"
+      fail ::Milia::Control::MaxTenantExceeded,
+           'Sorry, no new accounts are allowed at the moment'
     else
-      tenant.save    # create the tenant
+      tenant.save # create the tenant
     end
 
-    return tenant
+    tenant
   end
 
   # ------------------------------------------------------------------------
@@ -28,8 +30,8 @@ class Tenant < ActiveRecord::Base
   # args: params from user input; might contain a special 'coupon' code
   #       used to determine whether or not to allow another signup
   # ------------------------------------------------------------------------
-  def self.new_signups_not_permitted?(params)
-    return false
+  def self.new_signups_not_permitted?(_params)
+    false
   end
 
   # ------------------------------------------------------------------------
@@ -41,7 +43,7 @@ class Tenant < ActiveRecord::Base
   #   tenant -- new tenant obj
   #   other  -- any other parameter string from initial request
   # ------------------------------------------------------------------------
-  def self.tenant_signup(user, tenant, other = nil)
+  def self.tenant_signup(user, _tenant, _other = nil)
     #  StartupJob.queue_startup( tenant, user, other )
     # any special seeding required for a new organizational tenant
     #
