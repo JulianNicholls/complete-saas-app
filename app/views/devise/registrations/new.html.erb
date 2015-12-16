@@ -2,6 +2,10 @@
   Stripe.setPublishableKey("<%= ENV['STRIPE_TEST_PUBLISHABLE_KEY'] %>");
 </script>
 
+<p class="text-center text-primary">
+  <small>Feel free to sign up for either a free or premium plan, but see the note below</small>
+</p>
+
 <%= bootstrap_devise_error_messages! %>
 <div class="panel panel-default">
   <div class="panel-heading">
@@ -66,6 +70,7 @@
                              { include_blank: 'Year' }, class: "form-control",
                              data: { stripe: "exp-year"}, required: true %>
               </div>
+              <small class="text-center text-danger">Please do NOT use a real credit card number. It cannot be stored or charged, but safety first.</small>
             </div>
           </div>
         <% end %>
