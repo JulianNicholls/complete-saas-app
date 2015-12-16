@@ -6,15 +6,13 @@ footer {
 }
 
 .user-name {
-    padding: 0 !important ;
-    padding-left: 5px;
-    padding-top: 15px !important;
+    padding: 15px 0 0 5px !important;
     text-align: center;
 
     a {
-        color: #777 !important;
+        color: #eee !important;
         margin: 0 !important;
-        padding: 5px!important;
+        padding: 5px !important;
 
         &:hover, &:focus {
             color: #000 !important;
@@ -81,7 +79,7 @@ footer {
 
         .lead {
             font-family: 'Helvetica Neue' !important;
-            font-size: 30px !important;
+            font-size: 15px !important;
         }
     }
 }
@@ -97,6 +95,10 @@ footer {
     border: 1px solid #e7e7e7;
     border-radius: 5px;
     margin-right: 5px;
+
+    h2 {
+        font-size: 24px;
+    }
 }
 
 .price {
@@ -109,7 +111,7 @@ footer {
 }
 
 .extra {
-    color: #20a820;
+    color: #10a810;
 }
 
 .no-side-padding {
@@ -136,14 +138,19 @@ footer {
 }
 
 .fa-rocket {
-  background: #fff;
-  border: 1px solid white;
-  border-radius: 20px;
-  color: red;
-  padding: 6px;
+    background: #fff;
+    border: 1px solid white;
+    border-radius: 20px;
+    color: red;
+    padding: 6px;
 }
 
 .logout {
-  padding-left: 0;
+    padding-left: 0;
 }
 
+.navbar.navbar-static-top {
+    background: #000;
+    color: #fff !important;
+    padding-bottom: 5px;
+}
