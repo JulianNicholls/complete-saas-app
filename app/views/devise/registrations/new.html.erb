@@ -36,11 +36,11 @@
 
         <div class="form-group col-sm-6 no-right-padding">
           <%= w.label :plan %>
-          <%= w.select :plan, options_for_select(Plan.options, params[:plan]),{},
+          <%= w.select :plan, options_for_select(Plan.options, params[:plan]), {},
                        required: true, class: 'form-control' %>
         </div>
 
-        <%= fields_for( :payment ) do |p| %>
+        <%= fields_for(:payment) do |p| %>
           <div class="row">
             <div class="form-group col-md-4">
               <%= p.label :card_number, "Card Number", data: { stripe: 'label' } %>
@@ -50,7 +50,7 @@
             <div class="form-group col-md-2">
               <%= p.label :card_cvv, "Card CVV", data: { stripe: 'label' } %>
               <%= p.text_field :card_cvv, class: "form-control", required: true,
-                               data: { stripe: 'cvv' } %>
+                               data: { stripe: 'cvc' } %>
             </div>
             <div class="form-group col-md-6 no-left-padding">
               <div class="col-md-12">

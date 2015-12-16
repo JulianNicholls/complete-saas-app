@@ -1,10 +1,13 @@
 // First, find out the plan
 
 $(function () {
+    // Set the dropdown correctly based on plan entering
+    handlePlanChange(getURLParameter('plan'), ".cc_form");
 
-// Set the dropdown correctly based on plan entering
-
-// Intercept the plan changing
+    // Intercept the plan changing
+    $("#tenant_plan").on('change', function () {
+        handlePlanChange($("#tenant_plan :selected").val(), ".cc_form");
+    });
 
     // Intercept the submit
     $(".cc_form").on('submit', submitHandler);
@@ -24,11 +27,41 @@ function submitHandler(event) {
         showError("Failed lo start credit card processing. Please reload the page.");
     }
 
-    event.preventDefault();
     return false;
 }
 
-// Process the Stripe payment
+// Intercept the plan changing
+function handlePlanChange(plan_type, form) {
+    var $form = $(form);
+
+    if(plan_type == undefined) {
+        plan_type = $('#tenant_plan :selected').val();
+    }
+
+    if(plan_type === 'premium') {
+        $('[data-stripe]').prop('required', true);
+        $form.off('submit');
+        $form.on('submit', submitHandler)
+        $('[data-stripe]').show();
+    }
+    else {  // Free
+        $('[data-stripe]').removeProp('required');
+        $form.off('submit');
+        $('[data-stripe]').hide();
+    }
+}
+
+function getURLParameter(sParam) {
+    var sPageURL      = window.location.search.substring(1),
+        sURLVariables = sPageURL.split('&');
+
+    for(var i = 0; i < sURLVariables.length; ++i) {
+        var sParameterName = sURLVariables[i].split('=');
+
+        if(sParameterName[0] == sParam)
+            return sParameterName[1];
+    }
+}
 
 // Insert the token into the data stream, but not the CC details
 
@@ -45,7 +78,7 @@ function stripeResponseHandler(status, response) {
         var token = response.id;
         $form.append($('<input type="hidden" name="payment[token]" />').val(token));
         $("[data-stripe=number]").remove();
-        $("[data-stripe=cvv]").remove();
+        $("[data-stripe=cvc]").remove();
         $("[data-stripe=exp-month]").remove();
         $("[data-stripe=exp-year]").remove();
         $("[data-stripe=label]").remove();
@@ -58,3 +91,12 @@ function stripeResponseHandler(status, response) {
 
 // Show errors, if any
 
+function showError(message) {
+    if($("#flash-messages").size() < 1)
+        $('div.container div:first').prepend("<div id='flash-messages'></div>")
+
+    $("#flash-messages").html('<div class="alert alert-warning"><a class="close" data-dismiss="alert">×</a><div id="flash_alert">' + message + '</div></div>');
+    $('.alert').delay(5000).fadeOut(3000);
+
+    return false;
+}
