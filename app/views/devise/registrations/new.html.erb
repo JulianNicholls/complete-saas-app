@@ -3,7 +3,10 @@
 </script>
 
 <p class="text-center text-primary">
-  <small>Feel free to sign up for either a free or premium plan, but see the note below</small>
+  <small>
+    Feel free to sign up for either a free or premium plan.
+    You will have to use a real email address in order to receive the confirmation email,
+    but see the note below about credit cards.</small>
 </p>
 
 <%= bootstrap_devise_error_messages! %>
@@ -33,7 +36,7 @@
         <div class="form-group col-sm-6 no-left-padding">
           <%= w.label :name, 'Organisation' %>
           <span class="description">
-            (Unique name for your group or organisation for the next account)
+            (Unique name for your group or organisation for the new account)
           </span>
           <%= w.text_field :name, required: true, class: 'form-control' %>
         </div>
@@ -45,7 +48,7 @@
         </div>
 
         <%= fields_for(:payment) do |p| %>
-          <p class="text-center text-danger"><small>Please do NOT use a real credit card number. It cannot be stored or charged, but safety first.</small></p>
+          <p class="text-center text-danger"><small>Please do NOT use a real credit card number. It cannot be stored or charged, but security is always important.</small></p>
           <div class="row">
             <div class="form-group col-md-4">
               <%= p.label :card_number, "Card Number", data: { stripe: 'label' } %>
