@@ -58,8 +58,8 @@ class ProjectsController < ApplicationController
   end
 
   def users
-    @project_users = (@project.users + (User.where(tenant_id: @tenant_id, admin: true))) - [current_user]
-    @other_users   = @tenant.users.where(tenant_id: @tenant.id, admin: false) - (@project_users + [current_user])
+    @project_users = (@project.users + (User.where(tenant_id: @tenant.id, admin: true))) - [current_user]
+    @other_users   = @tenant.users.where(admin: false) - (@project_users + [current_user])
   end
 
   def add_user
