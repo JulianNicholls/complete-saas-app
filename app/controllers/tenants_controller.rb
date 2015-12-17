@@ -21,10 +21,10 @@ class TenantsController < ApplicationController
               @payment.save
             rescue StandardError => err
               flash[:error] = err.message
-              @tenant.destroy
+              @payment.destroy
               @tenant.plan = 'free'
               @tenant.save
-              redirect_to tenant_edit_path(@tenant)
+              redirect_to edit_tenant_path(@tenant)
               return
             end
           end
