@@ -48,7 +48,7 @@
         </div>
 
         <%= fields_for(:payment) do |p| %>
-          <p class="text-center text-danger"><small>Please do NOT use a real credit card number. It cannot be stored or charged, but security is always important.</small></p>
+          <p class="text-center text-danger"><small>Please do NOT use a real credit card number. It won't work, but security is always important.</small></p>
           <div class="row">
             <div class="form-group col-md-4">
               <%= p.label :card_number, "Card Number", data: { stripe: 'label' } %>
