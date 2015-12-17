@@ -1,3 +1,4 @@
+# Controller for organisational prpjects
 class ProjectsController < ApplicationController
   before_action :set_project, only: [:show, :edit, :update, :destroy]
   before_action :set_tenant, except: [:index]
@@ -56,12 +57,13 @@ class ProjectsController < ApplicationController
   end
 
   private
+
   # Use callbacks to share common setup or constraints between actions.
   def set_project
     @project = Project.find(params[:id])
   end
 
-  # Never trust parameters from the scary internet, only allow the white list through.
+  # Never trust parameters from the internet, only allow the white listed
   def project_params
     params.require(:project).permit(:title, :details, :expected_completion_date, :tenant_id)
   end
@@ -74,6 +76,6 @@ class ProjectsController < ApplicationController
     return if params[:tenant_id] == Tenant.current_tenant_id.to_s
 
     redirect_to :root,
-                flash: { error: 'You are not allowed to look at projects outside your organisation' }
+                flash: { error: 'You are not allowed to view projects outside your organisation' }
   end
 end

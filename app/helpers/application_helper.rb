@@ -12,23 +12,17 @@ module ApplicationHelper
     flash_messages = []
     flash.each do |type, message|
       # Skip empty messages, e.g. devise messages set to nothing in a locale.
-      next if message.blank?
+      next if message.blank? || !ALERT_TYPES.key?(type.to_sym)
 
-      type = ALERT_TYPES.fetch(type.to_sym) { next }
+      type = ALERT_TYPES.fetch(type.to_sym)
 
-      tag_class = options.extract!(:class)[:class]
-      tag_options = {
-        class: "alert fade in alert-#{type} #{tag_class}"
-      }.merge(options)
+      tag_class   = options.extract!(:class)[:class]
+      tag_options = { class: "alert fade in alert-#{type} #{tag_class}" }.merge(options)
 
-      close_button = content_tag(:button,
-                                 raw('&times;'),
-                                 type: 'button',
-                                 class: 'close',
-                                 'data-dismiss' => 'alert')
+      close = content_tag(:button, raw('&times;'), type: 'button', class: 'close', 'data-dismiss' => 'alert')
 
       Array(message).each do |msg|
-        text = content_tag(:div, close_button + msg, tag_options)
+        text = content_tag(:div, close + msg, tag_options)
         flash_messages << text if msg
       end
     end
@@ -46,6 +40,7 @@ module ApplicationHelper
 
   def class_for_tenant_form(tenant)
     return 'cc_form' if tenant.payment.blank?
+
     ''
   end
 end

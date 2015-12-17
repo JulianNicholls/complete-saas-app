@@ -1,3 +1,4 @@
+# Controller for project artefacts
 class ArtefactsController < ApplicationController
   before_action :set_artefact, only: [:show, :edit, :update, :destroy]
 
@@ -29,7 +30,8 @@ class ArtefactsController < ApplicationController
 
     respond_to do |format|
       if @artefact.save
-        format.html { redirect_to tenant_project_url(tenant_id: Tenant.current_tenant_id, id: @artefact.project_id),
+        format.html { redirect_to tenant_project_url(tenant_id: Tenant.current_tenant_id,
+                                                     id: @artefact.project_id),
                                   notice: 'Artefact was successfully created.' }
         format.json { render :show, status: :created, location: @artefact }
       else
@@ -58,20 +60,22 @@ class ArtefactsController < ApplicationController
   def destroy
     @artefact.destroy
     respond_to do |format|
-      format.html { redirect_to tenant_project_url(tenant_id: Tenant.current_tenant_id, id: @artefact.project_id),
-        notice: 'Artefact was successfully destroyed.' }
+      format.html { redirect_to tenant_project_url(tenant_id: Tenant.current_tenant_id,
+                                                   id: @artefact.project_id),
+                                notice: 'Artefact was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_artefact
-      @artefact = Artefact.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def artefact_params
-      params.require(:artefact).permit(:name, :project_id, :upload)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_artefact
+    @artefact = Artefact.find(params[:id])
+  end
+
+  # Never trust parameters from the internet, only allow the white listed.
+  def artefact_params
+    params.require(:artefact).permit(:name, :project_id, :upload)
+  end
 end

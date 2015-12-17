@@ -1,17 +1,25 @@
+# Controller for the home page
 class HomeController < ApplicationController
-  skip_before_action :authenticate_tenant!, :only => [ :index ]
+  skip_before_action :authenticate_tenant!, only: [:index]
 
   def index
-    if current_user
-      if session[:tenant_id]
-        Tenant.set_current_tenant session[:tenant_id]
-      else
-        Tenant.set_current_tenant current_user.tenants.first
-      end
+    return unless current_user
 
-      @tenant = Tenant.current_tenant
-      @projects = Project.by_plan_and_tenant(@tenant.id)
-      params[:tenant_id] = @tenant.id
+    set_current_tenant
+
+    @tenant   = Tenant.current_tenant
+    @projects = Project.by_plan_and_tenant(@tenant.id)
+
+    params[:tenant_id] = @tenant.id
+  end
+
+  private
+
+  def set_current_tenant
+    if session[:tenant_id]
+      Tenant.set_current_tenant session[:tenant_id]
+    else
+      Tenant.set_current_tenant current_user.tenants.first
     end
   end
 end
