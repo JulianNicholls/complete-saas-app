@@ -1,13 +1,12 @@
 <div class="page-header">
-  <h3>Users for project <%= @project.title %></h3>
-  <strong>(other than yourself}</strong>
+  <h3>Users for project <%= @project.title %> <small>(other than yourself}</small></h3>
 </div>
 
 <table class="table table-striped">
   <thead>
     <tr>
       <th>Email</th>
-      <th><%= t '.actions', default: t('helper.actions') %></th>
+      <th><%= t '.actions', default: t('helpers.actions') %></th>
     </tr>
   </thead>
   <tbody>
@@ -27,9 +26,9 @@
     <% end %>
   </tbody>
 </table>
+<br>
 
-<h3>Users for project <%= @project.title %></h3>
-<strong>(Admins don't need adding}</strong>
+<h3>Users for project <%= @project.title %> <small>(Admins don't need adding}</small></h3>
 
 <table class="table table-striped">
   <thead>
