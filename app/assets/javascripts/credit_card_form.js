@@ -1,16 +1,17 @@
 // First, find out the plan
 
 $(function () {
+    // Intercept the submit
+    $(".cc_form").on('submit', submitHandler);
+
     // Set the dropdown correctly based on plan entering
+    // potentially removing the submit handler above correctly.
     handlePlanChange(getURLParameter('plan'), ".cc_form");
 
     // Intercept the plan changing
     $("#tenant_plan").on('change', function () {
         handlePlanChange($("#tenant_plan :selected").val(), ".cc_form");
     });
-
-    // Intercept the submit
-    $(".cc_form").on('submit', submitHandler);
 });
 
 // Submit handler
@@ -93,7 +94,7 @@ function stripeResponseHandler(status, response) {
 
 function showError(message) {
     if($("#flash-messages").size() < 1)
-        $('div.container div:first').prepend("<div id='flash-messages'></div>")
+        $('div.container div:first').append("<div id='flash-messages'></div>")
 
     $("#flash-messages").html('<div class="alert alert-warning"><a class="close" data-dismiss="alert">×</a><div id="flash_alert">' + message + '</div></div>');
     $('.alert').delay(5000).fadeOut(3000);
