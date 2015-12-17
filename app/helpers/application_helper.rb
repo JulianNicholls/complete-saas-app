@@ -35,7 +35,7 @@ module ApplicationHelper
   end
 
   def s3_link(_tenant_id, artefact_key)
-    link_to artefact_key, artefact_key, class: 'main-link', target: 'new'
+    link_to Pathname(artefact_key).basename, artefact_key, class: 'main-link', target: 'new'
   end
 
   def class_for_tenant_form(tenant)
