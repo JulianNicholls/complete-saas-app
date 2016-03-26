@@ -25,13 +25,14 @@ function submitHandler(event) {
         Stripe.card.createToken($form, stripeResponseHandler);
     }
     else {
-        showError("Failed lo start credit card processing. Please reload the page.");
+        showError("Failed to start credit card processing. Please reload the page.");
     }
 
     return false;
 }
 
 // Intercept the plan changing
+
 function handlePlanChange(plan_type, form) {
     var $form = $(form);
 
